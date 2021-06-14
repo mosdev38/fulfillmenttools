@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "cli": {
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "client-pickjob",
+  "projects": {
+    "client-pickjob": {
+      "root": "apps/client-pickjob",
+      "sourceRoot": "apps/client-pickjob/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/client-pickjob",
+            "main": "apps/client-pickjob/src/main.ts",
+            "tsConfig": "apps/client-pickjob/tsconfig.app.json",
+            "assets": ["apps/client-pickjob/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/client-pickjob/src/environments/environment.ts",
+                  "with": "apps/client-pickjob/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "client-pickjob:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/client-pickjob/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/client-pickjob"],
+          "options": {
+            "jestConfig": "apps/client-pickjob/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  }
+}
