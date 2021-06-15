@@ -7,6 +7,8 @@ export interface Pickjob {
   pickLineItems:       PickLineItem[];
   deliveryinformation: Deliveryinformation;
   customAttributes:    CustomAttributes;
+  version?: number;
+  id?: string;
 }
 
 export interface CustomAttributes {
@@ -58,6 +60,7 @@ export interface PickLineItem {
   quantity:         number;
   scannableCodes:   string[];
   customAttributes: CustomAttributes;
+  id?: string;
 }
 
 export interface Article {

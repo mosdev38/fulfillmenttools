@@ -43,25 +43,40 @@ export class PickjobService {
     return resPickjobs.json();
   }
 
-  async pickItems(pickjobId: string, picklineId: string): Promise<Pickjob[]> {
+  async pickItems(pickjobId: string): Promise<Pickjob[]> {
     const token = await this.authService.getAuthToken();
+    const pickjob: Pickjob = await this.getPickjob(pickjobId, token);
+    const pickActions = pickjob.pickLineItems.map(item => {
+      return {
+        id: item.id,
+        action: 'ModifyPickLineItem',
+        status: 'CLOSED',
+        picked: item.quantity,
+      }
+    })
     const resPickjobs = await fetch(this.apiUrl + `/${pickjobId}`, {
       method: 'PATCH',
       body: JSON.stringify({
-        version: 2,
+        version: pickjob.version,
         actions: [
           {
             action: 'ModifyPickJob',
             status: 'CLOSED',
           },
-          {
-            id: picklineId,
-            action: 'ModifyPickLineItem',
-            status: 'CLOSED',
-            picked: 1,
-          },
+          ...pickActions,
         ],
       }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return resPickjobs.json();
+  }
+
+  async getPickjob(pickjobId:string, token:string):Promise<Pickjob>{
+    const resPickjobs = await fetch(this.apiUrl + `/${pickjobId}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

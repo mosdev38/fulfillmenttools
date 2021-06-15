@@ -18,12 +18,11 @@ export class PickJobController {
     return this.pickjobService.setInProgress(pickjobId);
   }
 
-  @Patch(':pickjobId/pickjobLine/:picklineId')
+  @Patch(':pickjobId/pickjobLine')
   patchPickjobItems(
-    @Param('pickjobId') pickjobId: string,
-    @Param('picklineId') picklineId: string
+    @Param('pickjobId') pickjobId: string
   ): Promise<Pickjob[]> {
-    console.log(pickjobId + ' / ' + picklineId);
-    return this.pickjobService.pickItems(pickjobId, picklineId);
+    console.log(pickjobId);
+    return this.pickjobService.pickItems(pickjobId);
   }
 }
