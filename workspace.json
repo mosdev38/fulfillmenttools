@@ -12,12 +12,16 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/client-pickjob",
             "main": "apps/client-pickjob/src/main.ts",
             "tsConfig": "apps/client-pickjob/tsconfig.app.json",
-            "assets": ["apps/client-pickjob/src/assets"]
+            "assets": [
+              "apps/client-pickjob/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -42,14 +46,43 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/client-pickjob/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/client-pickjob/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/client-pickjob"],
+          "outputs": [
+            "coverage/apps/client-pickjob"
+          ],
           "options": {
             "jestConfig": "apps/client-pickjob/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "models": {
+      "root": "libs/models",
+      "sourceRoot": "libs/models/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/models/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/models"
+          ],
+          "options": {
+            "jestConfig": "libs/models/jest.config.js",
             "passWithNoTests": true
           }
         }

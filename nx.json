@@ -21,6 +21,9 @@
   "projects": {
     "client-pickjob": {
       "tags": []
+    },
+    "models": {
+      "tags": []
     }
   }
 }
